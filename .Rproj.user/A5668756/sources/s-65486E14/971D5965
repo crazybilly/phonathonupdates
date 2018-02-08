@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1518118579421.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "971D5965",
+    "lastKnownWriteTime" : 1518121803,
+    "last_content_update" : 1518121803967,
+    "path" : "C:/Users/jtolbert/Desktop/phonathonupdates/R/processbadnumbers.R",
+    "project_path" : "R/processbadnumbers.R",
+    "properties" : {
+        "cursorPosition" : "5,49",
+        "marks" : "<:0,0\n>:0,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
