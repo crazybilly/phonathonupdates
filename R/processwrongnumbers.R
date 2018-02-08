@@ -14,7 +14,7 @@
 #'
 processwrongnumbers  <- function(filename){
 
-  wrongnumbers  <- read.tidy( filename )
+  wrongnumbers  <- muadc::read.tidy( filename )
 
   wrong  <- wrongnumbers %>%
     filter(lastofresult == 'Wrong#\\Disconnected') %>%

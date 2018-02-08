@@ -15,7 +15,7 @@
 #'
 processbadnumbers  <- function(filelocation) {
 
-  badnumbers  <- read.tidy( filelocation )
+  badnumbers  <- muadc::read.tidy( filelocation )
 
 
   # what was the best existing number for each person
