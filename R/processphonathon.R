@@ -3,6 +3,7 @@
 #' Process Phonathon Reports
 #'
 #' @param directory the directory path where update files are stored. Defaults to getwd()/data
+#' @param saveto the file path where you want to save the file. Use NA to bypass saving the file
 #' @param startdate a date or time. Files modified within 10 hours or earlier than this time will be processed. Defaults to now.
 #' @param updatetypes a character vector listing which types of updates should be processed.
 #'
@@ -15,7 +16,7 @@
 #'
 #' @export
 #'
-processphonathon  <- function(directory = 'data', startdate = Sys.time(), updatetypes = c('badnumbers','wrongnumbers','confirmations','updates') ) {
+processphonathon  <- function(directory = 'data', saveto = "output/phonathonupdates.csv", startdate = Sys.time(), updatetypes = c('badnumbers','wrongnumbers','confirmations','updates') ) {
 
   possibledateformats  <- c(
       "mdY"
@@ -42,8 +43,8 @@ processphonathon  <- function(directory = 'data', startdate = Sys.time(), update
 
   filestoread  <- allfiles[fileindex]
 
-
-  purrr::map(filestoread, ~
+  # process each file appropriately
+  results  <- purrr::map(filestoread, ~
     if(
       stringr::str_detect(.x, stringr::regex("bad_phone"   , ignore_case = T))
       & 'badnumbers' %in% updatetypes
@@ -71,6 +72,21 @@ processphonathon  <- function(directory = 'data', startdate = Sys.time(), update
     }
   ) %>%
   bind_rows
+
+
+  # write the file
+  if(!is.blank(saveto) ) {
+
+    # create the directory if it doesn't exist
+    if(!dir.exists(dirname(saveto)) ) {
+      dir.create(dirname(saveto))
+    }
+
+     muadc::write.tidy(results, saveto)
+
+  }
+
+  results
 
 
 }
