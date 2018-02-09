@@ -4,11 +4,14 @@
 \alias{processphonathon}
 \title{Process Phonathon Reports}
 \usage{
-processphonathon(directory = "data", startdate = Sys.time(),
-  updatetypes = c("badnumbers", "wrongnumbers", "confirmations", "updates"))
+processphonathon(directory = "data", saveto = "output/phonathonupdates.csv",
+  startdate = Sys.time(), updatetypes = c("badnumbers", "wrongnumbers",
+  "confirmations", "updates"))
 }
 \arguments{
 \item{directory}{the directory path where update files are stored. Defaults to getwd()/data}
+
+\item{saveto}{the file path where you want to save the file. Use NA to bypass saving the file}
 
 \item{startdate}{a date or time. Files modified within 10 hours or earlier than this time will be processed. Defaults to now.}
 

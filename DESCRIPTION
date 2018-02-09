@@ -1,12 +1,10 @@
 Package: phonathonupdates
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Process Millikin's Alumni & Development phonathon updates
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Jake Tolbert
+Description: a collection of scripts that simplify the results of the update report from VanillaSoft.
+License: GPL 3 or later
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
