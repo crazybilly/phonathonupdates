@@ -1,7 +1,7 @@
 Package: phonathonupdates
 Type: Package
 Title: Process Millikin's Alumni & Development phonathon updates
-Version: 0.1.0
+Version: 0.1.1
 Author: Jake Tolbert
 Description: a collection of scripts that simplify the results of the update report from VanillaSoft.
 License: GPL 3 or later
