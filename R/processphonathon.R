@@ -2,16 +2,17 @@
 
 #' Process Phonathon Reports
 #'
-#' @param directory
-#' @param startdate
-#' @param updatetypes
+#' @param directory the directory path where update files are stored. Defaults to getwd()/data
+#' @param startdate a date or time. Files modified within 10 hours or earlier than this time will be processed. Defaults to now.
+#' @param updatetypes a character vector listing which types of updates should be processed.
 #'
 #' @import dplyr
 #' @import stringr
 #' @import lubridate
 #' @import muadc
 #'
-#' @return
+#' @return a single data frame with all processed updates bound together
+#'
 #' @export
 #'
 processphonathon  <- function(directory = 'data', startdate = Sys.time(), updatetypes = c('badnumbers','wrongnumbers','confirmations','updates') ) {
@@ -43,14 +44,30 @@ processphonathon  <- function(directory = 'data', startdate = Sys.time(), update
 
 
   purrr::map(filestoread, ~
-    if(        stringr::str_detect(.x, stringr::regex("bad_phone"   , ignore_case = T)) ) {
-      processbadnumbers(.x) %>% bind_rows
-    } else if (stringr::str_detect(.x, stringr::regex("Wrong_Number", ignore_case= T) ) ) {
-      processwrongnumbers(.x)%>% bind_rows
-    } else if (stringr::str_detect(.x, stringr::regex("confirm"     , ignore_case= T) ) ) {
-      processconfirmationupdates(.x)%>% bind_rows
-    } else if (stringr::str_detect(.x, stringr::regex("_update.?_"  , ignore_case= T) ) ) {
-      processudpates(.x)%>% bind_rows
+    if(
+      stringr::str_detect(.x, stringr::regex("bad_phone"   , ignore_case = T))
+      & 'badnumbers' %in% updatetypes
+    ) {
+        processbadnumbers(.x) %>% bind_rows
+
+    } else if (
+      stringr::str_detect(.x, stringr::regex("Wrong_Number", ignore_case= T) )
+      & 'wrongnumbers' %in% updatetypes
+    ) {
+        processwrongnumbers(.x)%>% bind_rows
+
+    } else if (
+      stringr::str_detect(.x, stringr::regex("confirm"     , ignore_case= T) )
+      & 'confirmations' %in% updatetypes
+    ) {
+        processconfirmationupdates(.x)%>% bind_rows
+
+    } else if (
+      stringr::str_detect(.x, stringr::regex("_update.?_"  , ignore_case= T) )
+      & 'updates' %in% updatetypes
+    ) {
+        processudpates(.x)%>% bind_rows
+
     }
   ) %>%
   bind_rows

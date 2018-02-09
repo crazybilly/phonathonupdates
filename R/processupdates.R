@@ -15,10 +15,11 @@ processudpates  <- function(filename) {
 
   updates  <- muadc::read.tidy( filename ) %>%
     mutate(
-      addrnew = address1 != updatedaddress1& !is.blank(updatedaddress1)
+        addrnew = address1 != updatedaddress1& !is.blank(updatedaddress1)
       , jobnew  = (company != updatedemployer & !is.blank(updatedemployer) ) | (title != updatedjobtitle & !is.blank(updatedjobtitle))
       , emailnew = ( (tolower(personalemail) != tolower(updatedprefemail)) & !is.blank(updatedprefemail) )| (prefemailtype != updatedprefemailtype & !is.blank(updatedprefemailtype) )
       , phonenew = (!is.blank(updatedphone) | !is.blank(updatedprefphonetype) )
+      , namenew = !is.blank(updatedname) | !is.blank(updatednamereason)
     )
 
 
@@ -82,7 +83,22 @@ processudpates  <- function(filename) {
       , new_phone_type = updatedprefphonetype
     )
 
-  list(newaddress = updateaddr, newemail = updateemail, newjob = updatejob, newphone = updatephone)
+
+  updatename  <- updates %>%
+    filter(namenew) %>%
+    mutate(
+        action = 'new name'
+      , old_name = paste(lastname, firstname, sep = ", ")
+    ) %>%
+    select(
+      pidm
+      , action
+      , old_name
+      , updatedname
+      , updatednamereason
+    )
+
+  list(newaddress = updateaddr, newemail = updateemail, newjob = updatejob, newphone = updatephone, newname = updatename)
 
 
 }

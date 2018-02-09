@@ -34,7 +34,10 @@ processwrongnumbers  <- function(filename){
 
   deceased  <- wrongnumbers %>%
     filter(lastofresult == 'Deceased') %>%
-    mutate(action = 'mark deceased') %>%
+    mutate(
+        action = 'mark deceased'
+      , old_name = paste(lastname, firstname, sep = ", ")
+    ) %>%
     select(pidm, action, contains('name'), comment = lastofcomment)
 
 

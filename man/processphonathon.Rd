@@ -8,7 +8,14 @@ processphonathon(directory = "data", startdate = Sys.time(),
   updatetypes = c("badnumbers", "wrongnumbers", "confirmations", "updates"))
 }
 \arguments{
-\item{updatetypes}{}
+\item{directory}{the directory path where update files are stored. Defaults to getwd()/data}
+
+\item{startdate}{a date or time. Files modified within 10 hours or earlier than this time will be processed. Defaults to now.}
+
+\item{updatetypes}{a character vector listing which types of updates should be processed.}
+}
+\value{
+a single data frame with all processed updates bound together
 }
 \description{
 Process Phonathon Reports
