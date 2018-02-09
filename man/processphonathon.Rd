@@ -4,9 +4,10 @@
 \alias{processphonathon}
 \title{Process Phonathon Reports}
 \usage{
-processphonathon(directory = "data", saveto = "output/phonathonupdates.csv",
-  startdate = Sys.time(), updatetypes = c("badnumbers", "wrongnumbers",
-  "confirmations", "updates"))
+processphonathon(directory = "data",
+  saveto = str_replace_all(paste0("output/phonathonupdates-", Sys.time(),
+  ".csv"), ":| ", "-"), startdate = Sys.time(),
+  updatetypes = c("badnumbers", "wrongnumbers", "confirmations", "updates"))
 }
 \arguments{
 \item{directory}{the directory path where update files are stored. Defaults to getwd()/data}

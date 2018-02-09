@@ -16,7 +16,7 @@
 #'
 #' @export
 #'
-processphonathon  <- function(directory = 'data', saveto = "output/phonathonupdates.csv", startdate = Sys.time(), updatetypes = c('badnumbers','wrongnumbers','confirmations','updates') ) {
+processphonathon  <- function(directory = 'data', saveto = str_replace_all(paste0("output/phonathonupdates-",Sys.time(),".csv"),":| ", "-"), startdate = Sys.time(), updatetypes = c('badnumbers','wrongnumbers','confirmations','updates') ) {
 
   possibledateformats  <- c(
       "mdY"
