@@ -49,29 +49,34 @@ processphonathon  <- function(directory = 'data', saveto = str_replace_all(paste
       stringr::str_detect(.x, stringr::regex("bad_phone"   , ignore_case = T))
       & 'badnumbers' %in% updatetypes
     ) {
+        message("Processing bad phone numbers - ",.x, "...\n")
         processbadnumbers(.x) %>% bind_rows
 
     } else if (
       stringr::str_detect(.x, stringr::regex("Wrong_Number", ignore_case= T) )
       & 'wrongnumbers' %in% updatetypes
     ) {
+        message("Processing wrong numbers - ",.x, "...\n")
         processwrongnumbers(.x)%>% bind_rows
 
     } else if (
       stringr::str_detect(.x, stringr::regex("confirm"     , ignore_case= T) )
       & 'confirmations' %in% updatetypes
     ) {
+        message("Processing confirmation updates - ",.x, "...\n")
         processconfirmationupdates(.x)%>% bind_rows
 
     } else if (
       stringr::str_detect(.x, stringr::regex("_update.?_"  , ignore_case= T) )
       & 'updates' %in% updatetypes
     ) {
+        message("Processing update files - ",.x, "...\n")
         processudpates(.x)%>% bind_rows
 
     }
-  ) %>%
-  bind_rows
+  )
+
+  results2  <- bind_rows(results )
 
 
   # write the file
@@ -82,11 +87,11 @@ processphonathon  <- function(directory = 'data', saveto = str_replace_all(paste
       dir.create(dirname(saveto))
     }
 
-     muadc::write.tidy(results, saveto)
+     muadc::write.tidy(results2, saveto)
 
   }
 
-  results
+  results2
 
 
 }

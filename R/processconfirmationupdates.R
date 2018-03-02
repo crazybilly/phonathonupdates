@@ -15,7 +15,7 @@
 processconfirmationupdates  <- function(filename) {
 
 
-  confirmation  <- muadc::read.tidy('data/Updates_During_Confirmations.csv') %>%
+  confirmation  <- muadc::read.tidy(filename) %>%
     mutate(
       addrnew = address1 != commitaddress1
       , emailnew = email != commitemail
@@ -37,6 +37,9 @@ processconfirmationupdates  <- function(filename) {
       , new_state = commitstate
       , new_zip   = commitzip
       , comment   = lastofcomment
+    ) %>%
+    mutate(
+      new_zip = as.character(new_zip)
     )
 
   newemail  <- confirmation %>%

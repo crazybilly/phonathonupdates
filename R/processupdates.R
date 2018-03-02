@@ -38,6 +38,9 @@ processudpates  <- function(filename) {
       , new_state = updatedstate
       , new_zip   = updatedzip
       , comment   = lastofcomment
+    ) %>%
+    mutate(
+      new_zip = as.character(new_zip)
     )
 
 
@@ -81,6 +84,11 @@ processudpates  <- function(filename) {
       , old_home  = homephone
       , new_phone = updatedphone
       , new_phone_type = updatedprefphonetype
+    ) %>%
+    mutate(
+        new_phone = str_replace_all(new_phone, " |-|\\(|\\)", "")
+      , new_phone = str_replace(new_phone, "....$", "-\\0")
+      , new_phone = str_replace(new_phone, "(...)(...-....)", "(\\1) \\2")
     )
 
 
